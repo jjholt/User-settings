@@ -1,0 +1,29 @@
+global
+function math(context) {
+    return context.scopes.some(s => s.startsWith("meta.math"));
+}
+endglobal
+
+snippet $ "Add $" A
+\( $1 \)$0
+endsnippet
+
+context math(context)
+snippet => "Implies" A
+\implies $0
+endsnippet
+
+context math(context)
+snippet ln "ln" A
+\ln($1) $0
+endsnippet
+
+context math(context)
+snippet cos "cos" A
+\cos($1) $0
+endsnippet
+
+context math(context)
+snippet sin "sin" A
+\sin($1) $0
+endsnippet
