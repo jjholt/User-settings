@@ -17,4 +17,4 @@ echo "Copying user bin/"
 mkdir -p ~/bin && cp bin/* ~/bin/
 
 echo "Moving dot files into .config"
-mkdir -p ~/.config && cp dotfiles/* ~/.config
+mkdir -p ~/.config && cp -r dotfiles/* ~/.config/
