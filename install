@@ -12,3 +12,9 @@ echo "Tools"
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 sudo dnf install code texlive-scheme-full cargo npm rust blender gimp inkscape shotwell darktable vim ImageMagick
+
+echo "Copying user bin/"
+mkdir -p ~/bin && cp bin/* ~/bin/
+
+echo "Moving dot files into .config"
+mkdir -p ~/.config && cp dotfiles/* ~/.config
