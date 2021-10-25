@@ -1,5 +1,7 @@
 # Installation
+`git clone git@github.com:jjholt/User-settings.git && cd User-settings`
 
+`./install`
 
 # Disable output from bad monitor
 
