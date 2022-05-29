@@ -1,10 +1,10 @@
 echo "Enable RPM Fusion"
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && echo "\nOK\n"
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && echo "OK"
 echo "Basic setup"
-sudo dnf install zsh ksh polybar i3-gaps rofi polybar  arandr network-manager-applet blueman rofi-devel qalculate feh
+sudo dnf install zsh ksh polybar i3-gaps rofi polybar  arandr network-manager-applet blueman rofi-devel qalculate feh neofetch
 chsh -s $(which zsh)
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-sudo dnf install octave octave-signal octave-statistics octave-symbolic
+sudo dnf install octave octave-signal octave-statistics octave-symbolic ktechlab
 sudo dnf install vlc chromium transmission steam pavucontrol && echo "OK"
 
 echo "Audio setup"
