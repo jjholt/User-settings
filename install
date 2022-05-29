@@ -1,20 +1,22 @@
 echo "Enable RPM Fusion"
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && echo "\nOK\n"
 echo "Basic setup"
-sudo dnf install zsh polybar i3-gaps rofi polybar  arandr network-manager-applet blueman rofi-devel qalculate feh
+sudo dnf install zsh ksh polybar i3-gaps rofi polybar  arandr network-manager-applet blueman rofi-devel qalculate feh
+chsh -s $(which zsh)
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sudo dnf install octave octave-signal octave-statistics octave-symbolic
-sudo dnf install vlc chromium transmission steam && echo "\nOK\n"
+sudo dnf install vlc chromium transmission steam && echo "OK"
 
 echo "Audio setup"
-sudo dnf install pulseaudio pavucontrol mpd ncmpcpp && echo "\nOK\n"
+sudo dnf install pulseaudio pavucontrol mpd ncmpcpp && echo "OK"
 
 echo "Tools"
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf install code texlive-scheme-full cargo npm rust blender gimp inkscape shotwell darktable vim ImageMagick && echo "\nOK\n"
+sudo dnf install code texlive-scheme-full cargo npm rust blender gimp inkscape shotwell darktable vim ImageMagick && echo "OK"
 
 echo "Copying user bin/"
-mkdir -p ~/bin && cp bin/* ~/bin/ && echo "\nOK\n"
+mkdir -p ~/bin && cp bin/* ~/bin/ && echo "OK"
 
 echo "Moving dot files into .config"
-mkdir -p ~/.config && cp -r dotfiles/* ~/.config/ && echo "\nOK\n"
+mkdir -p ~/.config && cp -r dotfiles/* ~/.config/ && echo "OK"
