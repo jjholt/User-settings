@@ -5,7 +5,7 @@ sudo dnf install zsh ksh polybar i3-gaps rofi polybar  arandr network-manager-ap
 chsh -s $(which zsh)
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sudo dnf install octave octave-signal octave-statistics octave-symbolic
-sudo dnf install vlc chromium transmission steam && echo "OK"
+sudo dnf install vlc chromium transmission steam pavucontrol && echo "OK"
 
 echo "Audio setup"
 sudo dnf install pulseaudio pavucontrol mpd ncmpcpp && echo "OK"
