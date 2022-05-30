@@ -7,6 +7,9 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 sudo dnf install octave octave-signal octave-statistics octave-symbolic ktechlab
 sudo dnf install vlc chromium transmission steam pavucontrol mpd ncmpcpp && echo "OK"
 
+sudo dnf install xset bdftopcf
+git clone https://github.com/stark/siji&& ./siji/install.sh -d ~/.fonts && rm -r siji/ && echo "OK"
+
 echo "Audio setup"
 sudo dnf install pulseaudio pavucontrol mpd ncmpcpp && echo "OK"
 
