@@ -3,6 +3,9 @@
 
 `./install`
 
+# Neovim setup
+After everything has been installed, open nvim and call `:PackerSync` to install the lsp, snippets, etc
+
 # Disable output from bad monitor
 
 1. Go to `/usr/share/pulseaudio/alsa-mixer/paths'`
