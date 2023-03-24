@@ -1,0 +1,323 @@
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+def comment(): 
+	return vim.eval('vimtex#syntax#in_comment()') == '1'
+def env(name):
+	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+	return x != '0' and y != '0'
+endglobal
+
+snippet beg "begin" bA
+\begin{$1}
+	$0
+\end{$1}
+endsnippet
+
+snippet $ "inline math" Ai 
+$$1$$0
+endsnippet
+
+snippet bm "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+context "math()"
+snippet => "implies" Ai
+\implies
+endsnippet
+
+context "math()"
+snippet =< "implied by" Ai
+\impliedby
+endsnippet
+
+context "math()"
+snippet :. "cdot" Ai
+\cdot
+endsnippet
+
+context "math()"
+snippet :8 "infinity" Ai
+\infty
+endsnippet
+
+context "math()"
+snippet :6 "partial" Ai
+\partial
+endsnippet
+
+context "math()"
+snippet :/ "fraction" Ai
+\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet :% "fraction2" Ai
+\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet :: "circ" Ai
+\circ
+endsnippet
+
+context "math()"
+snippet :0 "supcirc" Ai
+\circ
+endsnippet
+
+context "math()"
+snippet := "equiv" Ai
+\equiv
+endsnippet
+
+context "math()"
+snippet :* "times" Ai
+\times
+endsnippet
+
+context "math()"
+snippet :< "leq" Ai
+\leq
+endsnippet
+
+context "math()"
+snippet :> "geq" Ai
+\geq
+endsnippet
+
+context "math()"
+snippet :I "int" Ai
+\int_{$1}^{$2}$0
+endsnippet
+
+context "math()"
+snippet :| "Big|" Ai
+\Big|
+endsnippet
+
+context "math()"
+snippet :+ "bigcup" Ai
+\bigcup
+endsnippet
+
+context "math()"
+snippet :- "bigcap" Ai
+\bigcap
+endsnippet
+
+context "math()"
+snippet :, "nonumber" Ai
+\nonumber
+endsnippet
+
+context "math()"
+snippet :a "alpha" Ai
+\alpha
+endsnippet
+
+context "math()"
+snippet :b "beta" Ai
+\beta
+endsnippet
+
+context "math()"
+snippet :c "chi" Ai
+\chi
+endsnippet
+
+context "math()"
+snippet :d "delta" Ai
+\delta
+endsnippet
+
+context "math()"
+snippet :e "epsilon" Ai
+\epsilon
+endsnippet
+
+context "math()"
+snippet :ve "varepsilon" Ai
+\varepsilon
+endsnippet
+
+context "math()"
+snippet :f "phi" Ai
+\phi
+endsnippet
+
+context "math()"
+snippet :vf "varphi" Ai
+\varphi
+endsnippet
+
+context "math()"
+snippet :g "gamma" Ai
+\gamma
+endsnippet
+
+context "math()"
+snippet :h "eta" Ai
+\eta
+endsnippet
+
+context "math()"
+snippet :i "iota" Ai
+\iota
+endsnippet
+
+context "math()"
+snippet :k "kappa" Ai
+\kappa
+endsnippet
+
+context "math()"
+snippet :l "lambda" Ai
+\lambda
+endsnippet
+
+context "math()"
+snippet :m "mu" Ai
+\mu
+endsnippet
+
+context "math()"
+snippet :n "nu" Ai
+\nu
+endsnippet
+
+context "math()"
+snippet :p "pi" Ai
+\pi
+endsnippet
+
+context "math()"
+snippet :vp "varpi" Ai
+\varpi
+endsnippet
+
+context "math()"
+snippet :q "theta" Ai
+\theta
+endsnippet
+
+context "math()"
+snippet :vq "vartheta" Ai
+\vartheta
+endsnippet
+
+context "math()"
+snippet :r "rho" Ai
+\rho
+endsnippet
+
+context "math()"
+snippet :vr "varrho" Ai
+\varrho
+endsnippet
+
+context "math()"
+snippet :s "sigma" Ai
+\sigma
+endsnippet
+
+context "math()"
+snippet :vs "varsigma" Ai
+\varsigma
+endsnippet
+
+context "math()"
+snippet :t "tau" Ai
+\tau
+endsnippet
+
+context "math()"
+snippet :u "upsilon" Ai
+\upsilon
+endsnippet
+
+context "math()"
+snippet :w "omega" Ai
+\omega
+endsnippet
+
+context "math()"
+snippet :& "wedge" Ai
+\wedge
+endsnippet
+
+context "math()"
+snippet :x "xi" Ai
+\xi
+endsnippet
+
+context "math()"
+snippet :y "psi" Ai
+\psi
+endsnippet
+
+context "math()"
+snippet :z "zeta" Ai
+\zeta
+endsnippet
+
+context "math()"
+snippet :D "Delta" Ai
+\Delta
+endsnippet
+
+context "math()"
+snippet :F "Phi" Ai
+\Phi
+endsnippet
+
+context "math()"
+snippet :G "Gamma" Ai
+\Gamma
+endsnippet
+
+context "math()"
+snippet :Q "Theta" Ai
+\Theta
+endsnippet
+
+context "math()"
+snippet :L "Lambda" Ai
+\Lambda
+endsnippet
+
+context "math()"
+snippet :P "Pi" Ai
+\Pi
+endsnippet
+
+context "math()"
+snippet :X "Xi" Ai
+\Xi
+endsnippet
+
+context "math()"
+snippet :Y "Psi" Ai
+\Psi
+endsnippet
+
+context "math()"
+snippet :S "Sigma" Ai
+\Sigma
+endsnippet
+
+context "math()"
+snippet :U "Upsilon" Ai
+\Upsilon
+endsnippet
+
+context "math()"
+snippet :W "Omega" Ai
+\Omega
+endsnippet
