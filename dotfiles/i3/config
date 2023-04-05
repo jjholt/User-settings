@@ -59,11 +59,12 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec $terminal
 
-set $tmp .tmp
-bindsym $mod+g exec $terminal --title=$tmp -x vim -c startinsert -c 'set ft=tex' $tmp; mode "vimEditor"
+# start a terminal
+bindsym $mod+Return exec $terminal -e tmux new-session -A -s main
+
+set $tmp .tmp.tex
+bindsym $mod+g exec gnome-terminal --title=$tmp -- nvim $tmp -c startinsert -c 'set ft=tex'; mode "vimEditor"
 
 mode "vimEditor" {
     bindsym $mod+Escape mode "default"
@@ -251,3 +252,7 @@ exec mpd
 
 # Fix monitors
 exec --no-startup-id ~/.screenlayout/layout.sh
+
+# Change focused colour
+# class                 border  backgr. text    indicator child_border
+client.focused          #e2be7d #e5c07b  #ffffff #e5c07b    #e5c07b 
