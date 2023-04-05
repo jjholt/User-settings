@@ -1,0 +1,1 @@
+alias v="~/bin/v"
