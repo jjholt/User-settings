@@ -63,17 +63,19 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec $terminal -e tmux new-session -A -s main
 
-set $tmp .tmp.tex
-bindsym $mod+g exec gnome-terminal --title=$tmp -- nvim $tmp -c startinsert -c 'set ft=tex'; mode "vimEditor"
+set $title tmp
+# bindsym $mod+g exec gnome-terminal --title=$tmp -- nvim $tmp -c startinsert -c 'set ft=tex'; mode "vimEditor"
+bindsym $mod+m exec $terminal --title=$title -e ncmpcpp; mode "music-editor"
 
-mode "vimEditor" {
+mode "music-editor" {
+    bindsym $mod+m [class="Alacritty" title="tmp"] kill; mode "default"
+    bindsym Escape mode "default"
     bindsym $mod+Escape mode "default"
-    bindsym $mod+g [class="(?i)terminal" title="$tmp"] kill; exec xclip -selection clipboard < $tmp.swp; exec rm $tmp $tmp.swp; mode "default"
 }
 
 # bindsym $mod+g exec gnome-terminal --title=$tmp -x scratchpad
 
-for_window [class="(?i)terminal" title=$tmp] floating enable 
+for_window [class="Alacritty" title=tmp] floating enable 
 
 
 
