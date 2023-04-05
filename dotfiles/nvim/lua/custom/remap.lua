@@ -28,9 +28,9 @@ vim.keymap.set("n", "<leader>h", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Terminal mode jam
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", {remap = true})
-vim.keymap.set("n", "<leader>t", "<cmd>split | terminal<CR>i")
-vim.keymap.set("t", "<leader>t", "<cmd>quit<CR>")
+-- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", {remap = true})
+-- vim.keymap.set("n", "<leader>t", "<cmd>split | terminal<CR>i")
+-- vim.keymap.set("t", "<leader>t", "<cmd>quit<CR>")
 
 -- Correct spelling
 vim.keymap.set("i", "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u")
@@ -38,3 +38,7 @@ vim.keymap.set('n', '<Leader>L', '<Cmd>lua require("luasnip.loaders.from_lua").l
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+-- Escape and save
+vim.keymap.set("i", "jk", "<esc>:w<CR>")
+vim.keymap.set("i", "kj", "<esc>:w<CR>")

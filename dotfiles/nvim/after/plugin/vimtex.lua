@@ -1,0 +1,10 @@
+vim.g.vimtex_view_general_viewer = 'zathura'
+vim.g.vimtex_view_method = 'zathura'
+vim.g.vimtex_view_general_options = [[--unique file:@pdf\#src:@line@tex '-reuse-instance -forward-search @tex @line @pdf']]
+vim.g.vimtex_quickfix_mode = 0
+vim.g.maplocalleader = " "
+vim.g.vimtex_quickfix_open_on_warning = 0
+-- vim.g.vimtex_conceallevel = 1
+vim.g.tex_conceal='abdmg'
+-- vim.g.vimtex_syntax_enabled = 0
+vim.g.Tex_MultipleCompileFormats='pdf,bib,pdf'

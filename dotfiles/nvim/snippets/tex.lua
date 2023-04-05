@@ -45,10 +45,10 @@ return {
     s({trig = '([^%a])ee', regTrig = true, wordTrig = false},
       fmta( "<>e^{<>}", { f( function(_, snip) return snip.captures[1] end ), d(1, get_visual) })),
     s({trig = "dd", snippetType = "autosnippet"}, fmta( "\\draw <> ;<>", { i(1), i(0)}), { condition = tex_utils.in_tikz }),
-    s({trig = "int", snippetType = "autosnippet"},
-        fmta("\\int_{<>}^{<>} <> \\diff <> <>", {i(1),i(2),i(4),i(3,"x"), i(0)}, {condition = tex_utils.in_mathzone})),
+    s("int", fmta("\\int_{<>}^{<>} <> \\diff <> <>", {i(1),i(2),i(4),i(3,"x"), i(0)}, {condition = tex_utils.in_mathzone})),
     s("vv", fmta("\\vec{<>}<>", {i(1),i(0)}, {condition = tex_utils.in_mathzone})),
     s("hh", fmta("\\hat{<>}<>", {i(1),i(0)}, {condition = tex_utils.in_mathzone})),
+    s({trig = "btik", snippetType = "autosnippet"}, fmta("\\begin{tikzpicture}\n\t<>\n\\end{tikzpicture}<>", {i(1),i(0)})),
 
 
     s({trig = ";.", snippetType = "autosnippet"}, fmta("\\cdot", {}, {condition = tex_utils.in_mathzone})),

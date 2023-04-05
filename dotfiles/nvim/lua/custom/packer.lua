@@ -52,25 +52,20 @@ return require('packer').startup(function(use)
         {'rafamadriz/friendly-snippets'}, -- Optional
     }
     }
-    use("folke/zen-mode.nvim")
 -- use {'SirVer/ultisnips'}
-    use { 'lervag/vimtex',
-    opt = true,
-    config = function ()
-        vim.g.vimtex_view_general_viewer = 'zathura'
-        vim.g.vimtex_view_method = 'zathura'
-        vim.g.tex_comment_nospell = 1
-        vim.g.vimtex_view_general_options = [[--unique file:@pdf\#src:@line@tex '-reuse-instance -forward-search @tex @line @pdf']]
-        vim.g.vimtex_conceallevel=1
-        vim.g.tex_conceal='abdmg'
-        vim.g.maplocalleader = " "
-    end,
-    ft = 'tex'
+    use 'lervag/vimtex'
+    use 'KeitaNakamura/tex-conceal.vim'
+    use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
+    -- Status bar stuff
+    use('feline-nvim/feline.nvim')
+    use 'nvim-tree/nvim-web-devicons'
+    use 'norcalli/nvim-colorizer.lua'
+    use {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup()
+        end
     }
-    use { 'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
-        }
         -- use {'jiangmiao/auto-pairs'}
+    use 'nvim-treesitter/nvim-treesitter-context'
 end)
