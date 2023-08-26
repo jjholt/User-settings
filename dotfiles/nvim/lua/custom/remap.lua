@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, {desc = "[P]roject [V]iew. Open file explorer. Equivalent of :Ex"})
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "J", "mzJ`z")
@@ -11,15 +11,17 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
--- next greatest remap ever : asbjornHaland
+-- next greatest remap ever : asbjornHaland 
+vim.keymap.set({"n", "v"}, "<c-y>", [["*y]])
+vim.keymap.set({"n", "v"}, "<c-p>", [["*p]])
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+vim.keymap.set("n", "<C-n>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-p>", "<cmd>cprev<CR>zz")
+-- vim.keymap.set("n", "<leader>n", "<cmd>lnext<CR>zz")
+-- vim.keymap.set("n", "<leader>p", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
@@ -33,12 +35,11 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 -- vim.keymap.set("t", "<leader>t", "<cmd>quit<CR>")
 
 -- Correct spelling
-vim.keymap.set("i", "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u")
-vim.keymap.set('n', '<Leader>L', '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/snippets/"})<CR>')
+vim.keymap.set("i", "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u", {noremap = true, desc = "Correct nearest mistake"})
+
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
-end)
+end, {desc = "Shout out. Equivalent to :so"})
 
 -- Escape and save
-vim.keymap.set("i", "jk", "<esc>:w<CR>")
-vim.keymap.set("i", "kj", "<esc>:w<CR>")
+-- vim.keymap.set("n", "<C-_>", ':let @/ = ""<CR>', {silent = true, noremap = true})

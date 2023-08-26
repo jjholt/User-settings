@@ -8,3 +8,4 @@ vim.g.vimtex_quickfix_open_on_warning = 0
 vim.g.tex_conceal='abdmg'
 -- vim.g.vimtex_syntax_enabled = 0
 vim.g.Tex_MultipleCompileFormats='pdf,bib,pdf'
+vim.g.vimtex_imaps_enabled = 0

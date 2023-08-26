@@ -1,17 +1,16 @@
-local lsp = require('lsp-zero')
+local lsp = require('lsp-zero').preset("recommended")
 
-lsp.preset("recommended")
 
 lsp.ensure_installed({
-	'rust_analyzer',
-	'texlab',
-    'clangd',
+	-- 'rust_analyzer',
     'texlab',
-    'yamlls',
-    'taplo',
+    'lua_ls',
 })
--- Fix Undefined global 'vim'
-lsp.configure('lua-language-server', {
+
+-- Use rust-tools to load rust_analyzer, use inlay_hints, etc.
+lsp.skip_server_setup({'rust_analyzer'})
+
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
@@ -20,18 +19,28 @@ lsp.configure('lua-language-server', {
         }
     }
 })
+
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings ({
-	['<C-S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-Tab>'] = cmp.mapping.select_next_item(cmp_select),
-	['<C-y>'] = cmp.mapping.confirm({select = true}),
-	['<C-Space>'] = cmp.mapping.complete(),
+cmp.setup({
+    mapping = {
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+        ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<C-s>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+        ['<CR>'] = cmp.mapping.confirm({select = true}),
+        -- ['<C-Space>'] = cmp.mapping.complete(),
+    },
+    sources = {
+        -- {name = "lsp-zero" },
+        {name = "nvim_lsp" },
+        {name = "luasnip" },
+    }
 })
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings,
-})
-
+-- lsp.setup_nvim_cmp({
+--   mapping = cmp_mappings,
+-- })
+-- Fix Undefined global 'vim'
 lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
@@ -43,33 +52,37 @@ lsp.set_preferences({
 })
 
 lsp.on_attach(function(client, bufnr)
-  local opts = {buffer = bufnr, remap = false}
+  local opts = {
+      buffer = bufnr,
+      remap = false,
+      -- remap = true,
+  }
+  lsp.default_keymaps(opts)
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
-  vim.keymap.set("n", "<leader>vf", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+  vim.keymap.set("n", "gw", function() vim.lsp.buf.workspace_symbol() end, opts)
+  vim.keymap.set("n", "ge", function() vim.diagnostic.open_float() end, opts)
+  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
+  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
   vim.keymap.set("n", "<leader>e", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
+  vim.keymap.set("i", "<C-e>", function() vim.lsp.buf.code_action() end, opts)
+  -- vim.keymap.set("n", "gr", require('telescope.builtin').lsp_references, opts)
+  vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  -- vim.keymap.set("n", "gk", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set({"i", "v"}, "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
-
-lsp.nvim_workspace()
-
-lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true
 })
 
+-- local rust_lsp = lsp.build_options('rust_analyzer', {
+--     single_file_support = false,
+-- })
 
--- Use rust-tools to load rust_analyzer, use inlay_hints, etc.
-lsp.skip_server_setup({'rust_analyzer'})
-local rust_lsp = lsp.build_options('rust_analyzer', {
-  single_file_support = false,
-})
-
-require('rust-tools').setup({server = rust_lsp})
+lsp.setup()
+-- require('rust-tools').setup({
+--     server = { rust_lsp };
+-- })

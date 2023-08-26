@@ -12,11 +12,22 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use("olimorris/onedarkpro.nvim")
-    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use('nvim-treesitter/nvim-treesitter',
+        {dependencies = {'nvim-treesitter/nvim-treesitter-textobjects'}},
+        {run = ':TSUpdate'}
+    )
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
+    use('nvim-treesitter/nvim-treesitter-context')
+    use('nvim-lua/plenary.nvim')
+    use('mfussenegger/nvim-dap')
 
+    use('folke/zen-mode.nvim', {
+        opts = {
+            window = {width = 180},
+        }
+    })
     use({ "folke/trouble.nvim",
       config = function()
           require("trouble").setup {
@@ -28,11 +39,15 @@ return require('packer').startup(function(use)
       end
     })
     use{'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
+    branch = 'v2.x',
     requires = {
         -- LSP Support
         {'neovim/nvim-lspconfig'},             -- Required
-        {'williamboman/mason.nvim'},           -- Optional
+        {'williamboman/mason.nvim',
+            run = function()
+                pcall(vim.cmd, 'MasonUpdate')
+            end,
+        },
         {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
         -- Autocompletion
@@ -45,7 +60,6 @@ return require('packer').startup(function(use)
         {'hrsh7th/cmp-nvim-lsp-signature-help'},
         {'hrsh7th/cmp-vsnip'},
         {'hrsh7th/vim-vsnip'},
-        {'simrat39/rust-tools.nvim'},
 
         -- Snippets
         {'L3MON4D3/LuaSnip', run = "make install_jsregexp"},             -- Required
@@ -53,19 +67,11 @@ return require('packer').startup(function(use)
     }
     }
 -- use {'SirVer/ultisnips'}
+    use('simrat39/rust-tools.nvim')
     use 'lervag/vimtex'
-    use 'KeitaNakamura/tex-conceal.vim'
+    -- use 'KeitaNakamura/tex-conceal.vim'
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
     -- Status bar stuff
     use('feline-nvim/feline.nvim')
-    use 'nvim-tree/nvim-web-devicons'
-    use 'norcalli/nvim-colorizer.lua'
-    use {
-        'lewis6991/gitsigns.nvim',
-        config = function()
-            require('gitsigns').setup()
-        end
-    }
-        -- use {'jiangmiao/auto-pairs'}
-    use 'nvim-treesitter/nvim-treesitter-context'
+    use('nvim-tree/nvim-web-devicons')
 end)

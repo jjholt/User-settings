@@ -61,7 +61,8 @@ floating_modifier $mod
 
 
 # start a terminal
-bindsym $mod+Return exec $terminal -e tmux new-session -A -s main
+bindsym $mod+Return exec $terminal 
+bindsym $mod+Shift+Return exec $terminal -e tmux new-session -A -s main
 
 set $title tmp
 # bindsym $mod+g exec gnome-terminal --title=$tmp -- nvim $tmp -c startinsert -c 'set ft=tex'; mode "vimEditor"
@@ -77,14 +78,28 @@ mode "music-editor" {
 
 for_window [class="Alacritty" title=tmp] floating enable 
 
-
-
-
 # open Rofi
-bindsym $mod+space exec rofi -show drun 
+# bindsym $mod+space exec rofi -show drun 
+bindsym $mod+BackSpace exec rofi -show drun 
 
 # Rofi calculator
 bindsym $mod+c exec rofi -show calc
+
+# Rofi search
+# bindsym $mod+p exec rofi -dmenu -p "Search Docs.rs" \
+#     | xargs -I % firefox "https://docs.rs/releases/search?query=%" 
+
+set $query_title "Search Docs.rs"
+bindsym $mod+p exec $terminal --title=$query_title -e bash -c ' \
+    : | fzf --print-query --header "Search Rust std lib" \
+    | xargs -I % firefox "https://doc.rust-lang.org/std/index.html?search=%" \
+'
+for_window [title=$query_title] floating enable 
+for_window [title=$query_title] resize set 500 200 
+for_window [title=$query_title] move position center
+
+# bindsym $mod+p exec firefox "https://docs.rs/releases/search?query=$(rofi -dmenu -p "Search Docs.rs")"
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
