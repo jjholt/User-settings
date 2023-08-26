@@ -1,0 +1,34 @@
+#!/bin/bash
+directory=~/Documents/Education/research-papers
+# RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+# RG_PREFIX="rga --files-with-matches"
+RG_PREFIX="rga --files-with-matches --no-heading --smart-case --text --glob '*.pdf'"
+initial_query="${*:-}"
+
+pdf_files=$(find $directory -name "*.pdf")
+# input=$(echo "$pdf_files" | xargs -I {} basename {} | fzf --print-query | tail -1)
+
+input=$(
+    $RG_PREFIX '$initial_query' $directory \
+    | fzf --print-query \
+    --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+    --bind "change:reload:sleep 0.1; $RG_PREFIX {q} '$directory' || true" \
+    --preview-window="70%:wrap" \
+)
+# Does it include .pdf? then we probably want to open it.
+if [[ "$input" == *".pdf"* ]]; then
+    file=$(echo "$input" | rg '/.*')
+    query=$(echo "$input" | rg '^[^/]*')
+
+    zathura "$file" &
+
+    echo -n "$query" | head -1 |tr -d '\n' | xclip -selection clipboard
+    # Highlight the queried terms
+    sleep 0.3
+    xdotool key slash ctrl+v return
+    wait
+elif [[ -n "$input" ]]; then
+    # If it's not empty and it's not a pdf, then it must be a web query.
+    query="${input// /+}"
+    firefox "https://duckduckgo.com/?q=$query"
+fi
