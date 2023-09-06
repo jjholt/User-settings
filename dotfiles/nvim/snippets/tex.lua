@@ -6,6 +6,7 @@ local i = ls.insert_node
 local c = ls.choice_node
 local f = ls.function_node
 local d = ls.dynamic_node
+local l = require("luasnip.extras").lambda
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
@@ -66,6 +67,29 @@ return {
     s({trig = "bal", dscr = "Align environment"}, fmta( "\\begin{align}\n\t<>\n\\end{align}<>", {i(1), i(0)}), {}),
     s({trig = "bsal", dscr = "Align* environment"}, fmta( "\\begin{align*}\n\t<>\n\\end{align*}<>", {i(1), i(0)}), {}),
     s({trig = "btik", dscr = "Tikzpicture environment"}, fmta("\\begin{tikzpicture}\n\t<>\n\\end{tikzpicture}<>", {i(1),i(0)})),
+    s({trig = "sfig", dscr = "Subfigure"}, fmta("\\begin{subfigure}[<>]{<>}\n\\centering\n\t\\includegraphics[<>]{figures/<>}\n\\caption{<>}\n\\label{fig:<>}\n\\end{subfigure}<>", {
+        c(1, {t"b", t"t"}),
+        i(2, "0.5\\textwidth"),
+        c(3, {
+            fmta("<>width=<>", {i(1), i(2, "\\textwidth")}),
+            fmta("<>height=<>", {i(1), i(2, "4cm")}),
+        }),
+        i(4),
+        i(5),
+        l(l._1:match("[^/]*$"):gsub(" ", "-"):lower(), 4),
+        i(0)
+    })),
+    s({trig = "fig", dscr = "Figure"}, fmta("\\begin{figure}[<>]\\centering\n\t\\includegraphics[<>]{figures/<>}\n\\caption{<>}\n\\label{fig:<>}\n\\end{figure}<>", {
+        c(1, {t"h", t"", t"t", t"b"}),
+        c(2, {
+            fmta("<>width=<>", {i(1), i(2, "0.5\\textwidth")}),
+            fmta("<>height=<>", {i(1), i(2, "4cm")}),
+        }),
+        i(3),
+        i(4),
+        l(l._1:match("[^/]*$"):gsub(" ", "-"):lower(), 3),
+        i(0)
+    })),
     s({trig = "bit", dscr = "Itemize"}, fmta( "\\begin{itemize}\n\t<>\n\\end{itemize}<>", {i(1), i(0)}), {}),
     s({trig = "ben", dscr = "Enumerate"}, fmta( "\\begin{enumerate}\n\t<>\n\\end{enumerate}<>", {i(1), i(0)}), {}),
     s({trig = "ii", dscr = "New item"}, fmta( "\\item ", {})),
