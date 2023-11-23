@@ -1,11 +1,26 @@
-local lsp = require('lsp-zero').preset("recommended")
-
-
-lsp.ensure_installed({
-	-- 'rust_analyzer',
-    'texlab',
-    'lua_ls',
+local lsp = require('lsp-zero')
+require('mason').setup({})
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        'texlab',
+        'lua_ls',
+        'matlab_ls',
+    },
+    handlers = {
+        lsp.default_setup,
+        rust_analyzer=lsp.noop,
+    },
 })
+
+lsp.preset("recommended")
+
+
+-- lsp.ensure_installed({
+-- 	-- 'rust_analyzer',
+--     'texlab',
+--     'lua_ls',
+--     'matlab_ls',
+-- })
 
 -- Use rust-tools to load rust_analyzer, use inlay_hints, etc.
 lsp.skip_server_setup({'rust_analyzer'})

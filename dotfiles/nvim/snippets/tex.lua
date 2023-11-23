@@ -6,6 +6,7 @@ local i = ls.insert_node
 local c = ls.choice_node
 local f = ls.function_node
 local d = ls.dynamic_node
+local r = ls.restore_node
 local l = require("luasnip.extras").lambda
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
@@ -60,7 +61,11 @@ return {
     s({trig = "spg", dscr = "Create Paragraph"}, fmta( "\\paragraph{<>}<>", {i(1), i(0)}), {}),
     s({trig = "sch", dscr = "Create Chapter"}, fmta( "\\chapter{<>}<>", {i(1), i(0)}), {}),
 
-    s({trig = "beg", dscr = "Begin a new environment"}, fmta( "\\begin{<>}\n\t<>\n\\end{<>}<>", {i(1), i(2), i(1), i(0)}), {}),
+    s({trig = "beg", dscr = "Begin a new environment"}, fmta( "\\begin{<>}\n\t<>\n\\end{<>}<>", {
+        i(1), i(2),
+        d(3, function (args) return sn(nil, {i(1, args[1])}) end, {1}),
+        i(0)
+    }), {stored = { ["user_text"] = i(1)}}),
     s({trig = "beq", dscr = "Equation environment"}, fmta( "\\begin{equation}\n\t<>\n\\end{equation}<>", {i(1), i(0)}), {}),
     s({trig = "bseq", dscr = "Equation* environment"}, fmta( "\\begin{equation*}\n\t<>\n\\end{equation*}<>", {i(1), i(0)}), {}),
     s({trig = "bcas", dscr = "Cases environment for pairs of equations"}, fmta( "\\begin{cases}\n\t<>\n\\end{cases}<>", {i(1), i(0)}), {}),
@@ -90,6 +95,13 @@ return {
         l(l._1:match("[^/]*$"):gsub(" ", "-"):lower(), 3),
         i(0)
     })),
+    s({trig = "tab", dscr = "Table"}, fmta("\\begin{table}\\centering\n\t\\begin{tabular}{<>}\n\t<>\n\t\\end{tabular}\n\\caption{<>}\n\\label{tab:<>}\n\\end{table}\n<>", {
+        c(1, {t"c", t"l", t"r"}),
+        i(4),
+        i(2),
+        i(3),
+        i(0)
+    })),
     s({trig = "bit", dscr = "Itemize"}, fmta( "\\begin{itemize}\n\t<>\n\\end{itemize}<>", {i(1), i(0)}), {}),
     s({trig = "ben", dscr = "Enumerate"}, fmta( "\\begin{enumerate}\n\t<>\n\\end{enumerate}<>", {i(1), i(0)}), {}),
     s({trig = "ii", dscr = "New item"}, fmta( "\\item ", {})),
@@ -97,12 +109,11 @@ return {
 
     s("dx", fmta( "\\frac{d<>}{d<>}<>", {i(1,"y"), i(2,"x"), i(0)}) , {condition = tex.in_mathzone}),
     s("dp", fmta( "\\frac{\\partial <>}{\\partial <>}<>", {i(1,"y"), i(2,"x"), i(0)}), {condition = tex.in_mathzone}),
-    s({trig = "([^%a])mm", wordTrig = false, regTrig = true, snippetType = "autosnippet"},
-      fmta( "<>$<>$", { f( function(_, snip) return snip.captures[1] end ), d(1, get_visual), })),
     s({trig = "dd", snippetType = "autosnippet"}, fmta( "\\draw <> ;<>", { i(1), i(0)}), { condition = tex.in_tikz }),
     s("int", fmta("\\int_{<>}^{<>} <> \\diff <> <>", {i(1),i(2),i(4),i(3,"x"), i(0)}, {condition = tex.in_mathzone})),
     s("vv", fmta("\\vec{<>}<>", {i(1),i(0)}, {condition = tex.in_mathzone})),
     s("hh", fmta("\\hat{<>}<>", {i(1),i(0)}, {condition = tex.in_mathzone})),
+    s("todo", fmta("\\todo[inline]{<>}<>", {i(1),i(0)}, {})),
     -- s("SI", fmta("\\SI{<>}{<>}<>", {i(1), i(2) ,i(0)}, {})),
 
     s({trig = "`", snippetType = "autosnippet"}, fmta("`<>'<>", {i(1),i(0)}, {})),
@@ -169,3 +180,4 @@ return {
     s({trig = ";{", snippetType = "autosnippet"}, fmta("\\left\\{ <> \\right\\} <>", {i(1), i(0)}, {condition = tex.in_mathzone})),
     s({trig = ";[", snippetType = "autosnippet"}, fmta("\\left[ <> \\right] <>", {i(1), i(0)}, {condition = tex.in_mathzone})),
 }
+

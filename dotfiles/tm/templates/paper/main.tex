@@ -1,0 +1,20 @@
+\documentclass[oneside]{report}
+\input{settings.tex}
+\begin{document}
+\input{preamble}
+\pagenumbering{roman}
+	\tableofcontents
+	\listoffigures
+	\listoftables 
+	\clearpage
+\pagenumbering{arabic}
+	\begin{abstract}
+		\subimport{src/}{Abstract}
+	\end{abstract}
+
+    \input{index.tex}
+    \clearpage
+	\bibliography{
+		bibliography
+	}
+\end{document}
