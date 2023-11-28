@@ -1,10 +1,21 @@
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+mkdir -p ~/.config && cp -r dotfiles/* ~/.config/
+mkdir -p ~/bin && cp bin/* ~/bin/
+echo "export PATH=$PATH:$HOME/bin" >> .bashrc
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-dnf install zsh neovim polybar i3 rofi polybar arandr network-manager-applet blueman rofi-devel qalculate feh xdotool tmux
+dnf install git zsh neovim polybar i3 rofi polybar arandr network-manager-applet blueman rofi-devel qalculate feh xdotool tmux fzf alacritty
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
 dnf install octave octave-signal octave-statistics octave-symbolic ktechlab
-dnf install xset pavucontrol mpd ncmpcpp texlive-scheme-full cargo gimp inkscape ImageMagick
+dnf install xset bdftopcf texlive-scheme-full gimp inkscape ImageMagick zathura zathura-pdf-poppler 
 
-dnf install vlc transmission steam mpd ncmpcpp
+dnf install vlc transmission steam mpd ncmpcpp pavucontrol
 
-
+hostnamectl set-hostname "Desktop"
 git clone https://github.com/stark/siji && cd siji && ./install.sh -d ~/.fonts
+
+firefox https://www.zotero.org/download/
