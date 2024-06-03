@@ -43,3 +43,6 @@ end, {desc = "Shout out. Equivalent to :so"})
 
 -- Escape and save
 -- vim.keymap.set("n", "<C-_>", ':let @/ = ""<CR>', {silent = true, noremap = true})
+
+vim.keymap.set("n", "gh", "<cmd>diffget //2<CR>", {desc = "Accept change to the left"})
+vim.keymap.set("n", "gl", "<cmd>diffget //3<CR>", {desc = "Accept change to the right"})

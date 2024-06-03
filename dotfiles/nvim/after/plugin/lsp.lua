@@ -2,14 +2,15 @@ local lsp = require('lsp-zero')
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
+        'rust_analyzer',
         'texlab',
         'lua_ls',
         'matlab_ls',
     },
-    handlers = {
-        lsp.default_setup,
-        rust_analyzer=lsp.noop,
-    },
+    -- handlers = {
+    --     -- lsp.default_setup,
+    --     rust_analyzer=lsp.noop,
+    -- },
 })
 
 lsp.preset("recommended")
@@ -23,7 +24,7 @@ lsp.preset("recommended")
 -- })
 
 -- Use rust-tools to load rust_analyzer, use inlay_hints, etc.
-lsp.skip_server_setup({'rust_analyzer'})
+-- lsp.skip_server_setup({'rust_analyzer'})
 
 lsp.configure('lua_ls', {
     settings = {
@@ -36,11 +37,14 @@ lsp.configure('lua_ls', {
 })
 
 local cmp = require('cmp')
+local cmp_action = require('lsp-zero').cmp_action()
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 cmp.setup({
     mapping = {
-        ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-        ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+        -- ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+        -- ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<Tab>'] = cmp_action.luasnip_supertab(),
+        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
         ['<C-s>'] = cmp.mapping.scroll_docs(-4),
         ['<C-d>'] = cmp.mapping.scroll_docs(4),
         ['<CR>'] = cmp.mapping.confirm({select = true}),

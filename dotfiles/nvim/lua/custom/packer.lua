@@ -6,8 +6,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.4',
+    use {'nvim-telescope/telescope.nvim', tag = '0.1.4',
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
@@ -18,7 +17,9 @@ return require('packer').startup(function(use)
     )
     use('theprimeagen/harpoon')
     use('mbbill/undotree')
-    use('github/copilot.vim')
+    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+    use({'dccsillag/magma-nvim', run = ':UpdateRemotePlugins'})
+    -- use('github/copilot.vim')
     use('tpope/vim-fugitive')
     use('nvim-treesitter/nvim-treesitter-context')
     use('nvim-lua/plenary.nvim')
@@ -68,7 +69,6 @@ return require('packer').startup(function(use)
     }
     }
 -- use {'SirVer/ultisnips'}
-    use('simrat39/rust-tools.nvim')
     use 'lervag/vimtex'
     -- use 'KeitaNakamura/tex-conceal.vim'
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }

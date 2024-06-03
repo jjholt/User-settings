@@ -39,6 +39,36 @@ tex.in_tikz = function()  -- TikZ picture environment detection
     return tex.in_env('tikzpicture')
 end
 
+local function get_figures()
+    -- Implement logic to list figures from the LaTeX root folder
+    -- For simplicity, let's assume the figures are in a 'figures' folder
+    local figures_dir = vim.fn.expand('%:p:h') .. '/figures'
+    local figures = vim.fn.glob(figures_dir .. '/*.pdf', false, true)
+    return figures
+end
+
+local function rofi_select_figures()
+    local figures = get_figures()
+
+    if #figures == 0 then
+        return ""
+    end
+
+    local rofi_cmd = "rofi -dmenu -p 'Select Figure:'"
+    local rofi_input = table.concat(figures, '\n')
+    local selected_figure = vim.fn.system(rofi_cmd, {input = rofi_input})
+
+    if vim.v.shell_error ~= 0 then
+        return ""
+    end
+
+    -- Remove file extension using xargs and basename
+    selected_figure = vim.fn.systemlist('echo "' .. selected_figure .. '" | xargs -I{} basename {} .pdf')[1]
+
+    return selected_figure
+end
+
+
 return {
     s({trig = "(%w+)%s+(%w+)\\", wordTrig = false, regTrig = true},
       fmta( "\\<>{<>}{<>}<>", {
@@ -102,6 +132,7 @@ return {
         i(3),
         i(0)
     })),
+    s({trig = "ink", dscr = "Inkscape PDF figure"}, fmta( "\\incfig[<>]{<>}<>", {i(1), i(2), i(0)}), {}),
     s({trig = "bit", dscr = "Itemize"}, fmta( "\\begin{itemize}\n\t<>\n\\end{itemize}<>", {i(1), i(0)}), {}),
     s({trig = "ben", dscr = "Enumerate"}, fmta( "\\begin{enumerate}\n\t<>\n\\end{enumerate}<>", {i(1), i(0)}), {}),
     s({trig = "ii", dscr = "New item"}, fmta( "\\item ", {})),
