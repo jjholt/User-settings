@@ -2,7 +2,7 @@ local lsp = require('lsp-zero')
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
-        'rust_analyzer',
+        -- 'rust_analyzer',
         'texlab',
         'lua_ls',
         'matlab_ls',
@@ -41,10 +41,10 @@ local cmp_action = require('lsp-zero').cmp_action()
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 cmp.setup({
     mapping = {
-        -- ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
-        -- ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<Tab>'] = cmp_action.luasnip_supertab(),
-        ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(cmp_select),
+        ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
+        -- ['<Tab>'] = cmp_action.luasnip_supertab(),
+        -- ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
         ['<C-s>'] = cmp.mapping.scroll_docs(-4),
         ['<C-d>'] = cmp.mapping.scroll_docs(4),
         ['<CR>'] = cmp.mapping.confirm({select = true}),

@@ -6,16 +6,18 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use {'nvim-telescope/telescope.nvim', tag = '0.1.4',
+    use {'nvim-telescope/telescope.nvim', tag = '0.1.6',
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use("olimorris/onedarkpro.nvim")
+    use("mrcjkb/rustaceanvim")
+    use("tpope/vim-surround")
     use('nvim-treesitter/nvim-treesitter',
         {dependencies = {'nvim-treesitter/nvim-treesitter-textobjects'}},
         {run = ':TSUpdate'}
     )
-    use('theprimeagen/harpoon')
+    use{ 'theprimeagen/harpoon', branch = "harpoon2", requires = { "nvim-lua/plenary.nvim"} }
     use('mbbill/undotree')
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
     use({'dccsillag/magma-nvim', run = ':UpdateRemotePlugins'})
@@ -25,11 +27,6 @@ return require('packer').startup(function(use)
     use('nvim-lua/plenary.nvim')
     use('mfussenegger/nvim-dap')
 
-    use('folke/zen-mode.nvim', {
-        opts = {
-            window = {width = 180},
-        }
-    })
     use({ "folke/trouble.nvim",
       config = function()
           require("trouble").setup {
