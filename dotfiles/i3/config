@@ -90,10 +90,8 @@ bindsym $mod+c exec rofi -show calc
 #     | xargs -I % firefox "https://docs.rs/releases/search?query=%" 
 
 set $query_title "Search Docs.rs"
-bindsym $mod+p exec $terminal --title=$query_title -e bash -c ' \
-    : | fzf --print-query --header "Search Rust std lib" \
-    | xargs -I % firefox "https://doc.rust-lang.org/std/index.html?search=%" \
-'
+bindsym $mod+Shift+p exec $terminal --title=$query_title -e bash -c ': | fzf --print-query --header "Search Rust std lib" | xargs -I % firefox "https://doc.rust-lang.org/std/index.html?search=%"'
+bindsym $mod+p exec $terminal --title=$query_title -e bash -c ': | fzf --print-query --header "Search Docs.rs" | xargs -I % firefox " https://docs.rs/releases/search?query=%"'
 for_window [title=$query_title] floating enable 
 for_window [title=$query_title] resize set 500 200 
 for_window [title=$query_title] move position center
