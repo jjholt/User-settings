@@ -1,1 +1,7 @@
 @theme "/usr/share/rofi/themes/android_notification.rasi"
+listview {
+    lines: 5;
+}
+window {
+    width: 30%;
+}
