@@ -32,7 +32,7 @@ default_floating_border pixel 1
 
 # Rofi controls
 #bindsym $mod+Shift+e exec rofi -show power-menu -modi power-menu:rofi-power-menu
-bindsym $mod+Tab exec rofi -show window
+bindsym $mod+Tab exec rofi -show window -lines 5 -no-fixed-num-lines
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -80,25 +80,13 @@ for_window [class="Alacritty" title=tmp] floating enable
 
 # open Rofi
 # bindsym $mod+space exec rofi -show drun 
-bindsym $mod+BackSpace exec rofi -show drun 
+bindsym $mod+BackSpace exec rofi -show drun
 
 # Rofi calculator
-bindsym $mod+c exec rofi -show calc
+bindsym $mod+c exec rofi -modi calc -show calc -no-persist-history -no-fixed-num-lines -calc-command 'xdotool type --clearmodifiers "{result}"'
 
-# Rofi search
-# bindsym $mod+p exec rofi -dmenu -p "Search Docs.rs" \
-#     | xargs -I % firefox "https://docs.rs/releases/search?query=%" 
-
-set $query_title "Search Docs.rs"
-bindsym $mod+p exec $terminal --title=$query_title -e bash -c ' \
-    : | fzf --print-query --header "Search Rust std lib" \
-    | xargs -I % firefox "https://doc.rust-lang.org/std/index.html?search=%" \
-'
-for_window [title=$query_title] floating enable 
-for_window [title=$query_title] resize set 500 200 
-for_window [title=$query_title] move position center
-
-# bindsym $mod+p exec firefox "https://docs.rs/releases/search?query=$(rofi -dmenu -p "Search Docs.rs")"
+bindsym $mod+Shift+p exec --no-startup-id rofi -dmenu -no-fixed-num-lines -p "Search Rust std lib" | xargs -I % firefox "https://doc.rust-lang.org/std/index.html?search=%"
+bindsym $mod+p exec --no-startup-id rofi -dmenu -no-fixed-num-lines -p "Search Docs.rs" | xargs -I % firefox "https://docs.rs/releases/search?query=%"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -273,3 +261,6 @@ exec --no-startup-id ~/.screenlayout/layout.sh
 # Change focused colour
 # class                 border  backgr. text    indicator child_border
 client.focused          #e2be7d #e5c07b  #ffffff #e5c07b    #e5c07b 
+
+exec --no-startup-id sudo logid
+exec --no-startup-id xset dpms 0 0 1500 & xset s 1500
