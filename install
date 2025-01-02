@@ -9,7 +9,9 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-dnf install git zsh neovim polybar i3 rofi polybar arandr network-manager-applet blueman rofi-devel qalculate feh xdotool tmux fzf alacritty flatpak ripgrep
+dnf install cargo git zsh neovim polybar gnome-session-xsession i3 rofi polybar arandr network-manager-applet blueman rofi-devel qalculate feh xdotool tmux fzf alacritty flatpak ripgrep
+echo "export EDITOR=/usr/bin/nvim" >> ~/.bashrc
+echo "export EDITOR=/usr/bin/nvim" >> ~/.zshrc
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
@@ -17,6 +19,8 @@ dnf install octave octave-signal octave-statistics octave-symbolic ktechlab
 dnf install xset bdftopcf texlive-scheme-full gimp inkscape ImageMagick zathura zathura-pdf-poppler 
 
 dnf install vlc transmission steam mpd ncmpcpp pavucontrol
+
+cp ~/.config/monitors.xml ~gdm/.config
 
 hostnamectl set-hostname "Desktop"
 git clone https://github.com/stark/siji && cd siji && ./install.sh -d ~/.fonts
