@@ -37,9 +37,6 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 -- Correct spelling
 vim.keymap.set("i", "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u", {noremap = true, desc = "Correct nearest mistake"})
 
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
-end, {desc = "Shout out. Equivalent to :so"})
 
 -- Escape and save
 -- vim.keymap.set("n", "<C-_>", ':let @/ = ""<CR>', {silent = true, noremap = true})

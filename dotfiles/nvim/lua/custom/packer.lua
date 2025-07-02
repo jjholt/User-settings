@@ -11,64 +11,45 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use("olimorris/onedarkpro.nvim")
-    use("mrcjkb/rustaceanvim")
+    -- use("mrcjkb/rustaceanvim")
     use("tpope/vim-surround")
     use('nvim-treesitter/nvim-treesitter',
         {dependencies = {'nvim-treesitter/nvim-treesitter-textobjects'}},
         {run = ':TSUpdate'}
     )
-    use{ 'theprimeagen/harpoon', branch = "harpoon2", requires = { "nvim-lua/plenary.nvim"} }
+    use{'theprimeagen/harpoon', branch = "harpoon2", requires = { "nvim-lua/plenary.nvim"}}
     use('mbbill/undotree')
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
-    use({'dccsillag/magma-nvim', run = ':UpdateRemotePlugins'})
     -- use('github/copilot.vim')
     use('tpope/vim-fugitive')
     use('nvim-treesitter/nvim-treesitter-context')
     use('nvim-lua/plenary.nvim')
     use('mfussenegger/nvim-dap')
 
+    use{'L3MON4D3/LuaSnip',
+        requires = {
+            'hrsh7th/nvim-cmp',
+            'saadparwaiz1/cmp_luasnip',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+        }
+    }
+
+    use('neovim/nvim-lspconfig')
+    use('mason-org/mason.nvim')
+    use('mason-org/mason-lspconfig.nvim')
     use({ "folke/trouble.nvim",
       config = function()
           require("trouble").setup {
               icons = false,
-              -- your configuration comes here
-              -- or leave it empty to use the default settings
-              -- refer to the configuration section below
           }
       end
     })
-    use{'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    requires = {
-        -- LSP Support
-        {'neovim/nvim-lspconfig'},             -- Required
-        {'williamboman/mason.nvim',
-            run = function()
-                pcall(vim.cmd, 'MasonUpdate')
-            end,
-        },
-        {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-        -- Autocompletion
-        {'hrsh7th/nvim-cmp'},         -- Required
-        {'hrsh7th/cmp-nvim-lsp'},     -- Required
-        {'hrsh7th/cmp-buffer'},       -- Optional
-        {'hrsh7th/cmp-path'},         -- Optional
-        {'saadparwaiz1/cmp_luasnip'}, -- Optional
-        {'hrsh7th/cmp-nvim-lua'},     -- Optional
-        {'hrsh7th/cmp-nvim-lsp-signature-help'},
-        {'hrsh7th/cmp-vsnip'},
-        {'hrsh7th/vim-vsnip'},
-
-        -- Snippets
-        {'L3MON4D3/LuaSnip', run = "make install_jsregexp"},             -- Required
-        {'rafamadriz/friendly-snippets'}, -- Optional
-    }
-    }
--- use {'SirVer/ultisnips'}
     use 'lervag/vimtex'
-    -- use 'KeitaNakamura/tex-conceal.vim'
-    use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
+    use {'numToStr/Comment.nvim', config = function() require('Comment').setup() end}
+    --
     -- Status bar stuff
     use('feline-nvim/feline.nvim')
     use('nvim-tree/nvim-web-devicons')

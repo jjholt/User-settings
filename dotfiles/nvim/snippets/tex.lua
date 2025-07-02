@@ -77,8 +77,12 @@ local function figures(_)
 	return table.concat(res)
 end
 
-
 return {
+    s("bf", f(function(args, snip)
+        local res, env = {}, snip.env
+        for _, ele in ipairs(env.LS_SELECT_RAW) do table.insert(res, "\\textbf{" .. ele .. "}") end
+        return res
+    end, {})),
     s({trig = "trig"}, {
         t"\\begin{figure}[", c(1, {t"h", t"", t"t", t"b"}),
         t{"]\\centering", "\t\\includegraphics["},
@@ -93,12 +97,12 @@ return {
         t{"}", "\\end{figure}"}, i(0)
     }),
     s({trig = "(%w+)%s+(%w+)\\", wordTrig = false, regTrig = true},
-      fmta( "\\<>{<>}{<>}<>", {
-          i(1),
-          f( function(_, snip) return snip.captures[1] end ),
-          f( function(_, snip) return snip.captures[2] end ),
-          i(0),
-      })),
+    fmta( "\\<>{<>}{<>}<>", {
+        i(1),
+        f( function(_, snip) return snip.captures[1] end ),
+        f( function(_, snip) return snip.captures[2] end ),
+        i(0),
+    })),
 
     s({trig = "(%d+)/", wordTrig = false, regTrig = true},
     fmta( "\\frac{<>}{<>}<>", {
@@ -106,6 +110,9 @@ return {
         i(1),
         i(0),
     })),
+
+    s({trig = "tb", dscr = "Bold font"}, fmta( "\\textbf{<>}<>", {i(1), i(0)}), {}),
+    s({trig = "te", dscr = "Emph font"}, fmta( "\\emph{<>}<>", {i(1), i(0)}), {}),
 
     s({trig = "sse", dscr = "Create Section"}, fmta( "\\section{<>}<>", {i(1), i(0)}), {}),
     s({trig = "sss", dscr = "Create Subsection"}, fmta( "\\subsection{<>}<>", {i(1), i(0)}), {}),
