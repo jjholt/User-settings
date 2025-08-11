@@ -30,8 +30,8 @@ cmp.setup({
         end,
     },
     mapping = cmp.mapping.preset.insert({
-        ["<S-Tab>"] = cmp.mapping.select_prev_item(cmp_select),
-        ["<Tab>"] = cmp.mapping.select_next_item(cmp_select),
+        -- ["<S-Tab>"] = cmp.mapping.select_prev_item(cmp_select),
+        -- ["<Tab>"] = cmp.mapping.select_next_item(cmp_select),
         ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
         ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
         -- ["<Tab>"] = cmp_action.luasnip_supertab(),
@@ -40,6 +40,24 @@ cmp.setup({
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<C-e>"] = cmp.mapping.complete(),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif ls.expand_or_jumpable() then
+                ls.expand_or_jump(-1)
+            else
+                fallback()
+            end
+        end, {"i", "s"}),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif ls.expand_or_jumpable() then
+                ls.expand_or_jump(1)
+            else
+                fallback()
+            end
+        end, {"i", "s"}),
         ["<C-k>"] = cmp.mapping(function()
             if ls.expand_or_jumpable() then
                 ls.expand_or_jump(-1)

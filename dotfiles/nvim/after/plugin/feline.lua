@@ -52,7 +52,7 @@ local c = {
 	gitBranch = {
 		provider = "git_branch",
 		hl = {
-			fg = "peanut",
+			-- fg = "peanut",
 			bg = "darkblue",
 			style = "bold",
 		},
@@ -137,14 +137,14 @@ local c = {
 		provider = {
 			name = "file_type",
 			opts = {
-				filetype_icon = true,
+				filetype_icon = false,
 				case = "titlecase",
 			},
 		},
 		hl = {
-			fg = "red",
+			-- fg = "red",
 			bg = "darkblue",
-			style = "bold",
+			-- style = "bold",
 		},
 		left_sep = "block",
 		right_sep = "block",
@@ -192,7 +192,7 @@ local left = {
 	c.vim_mode,
 	c.gitBranch,
 	c.gitDiffAdded,
-  c.gitDiffRemoved,
+    c.gitDiffRemoved,
 	c.gitDiffChanged,
 	c.separator,
 }
@@ -207,11 +207,11 @@ local middle = {
 
 local right = {
 	-- c.lsp_client_names,
-	-- c.file_type,
+	c.file_type,
 	-- c.file_encoding,
 	-- c.position,
 	-- c.line_percentage,
-	c.scroll_bar,
+	-- c.scroll_bar,
 }
 
 local components = {

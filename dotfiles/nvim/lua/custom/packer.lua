@@ -11,7 +11,7 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use("olimorris/onedarkpro.nvim")
-    -- use("mrcjkb/rustaceanvim")
+    use("mrcjkb/rustaceanvim")
     use("tpope/vim-surround")
     use('nvim-treesitter/nvim-treesitter',
         {dependencies = {'nvim-treesitter/nvim-treesitter-textobjects'}},
@@ -51,6 +51,6 @@ return require('packer').startup(function(use)
     use {'numToStr/Comment.nvim', config = function() require('Comment').setup() end}
     --
     -- Status bar stuff
-    use('feline-nvim/feline.nvim')
+    use{'feline-nvim/feline.nvim', requires = {'lewis6991/gitsigns.nvim'}}
     use('nvim-tree/nvim-web-devicons')
 end)
