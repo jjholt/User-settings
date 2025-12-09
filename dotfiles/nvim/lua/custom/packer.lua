@@ -11,7 +11,7 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use("olimorris/onedarkpro.nvim")
-    use("mrcjkb/rustaceanvim")
+    -- use("mrcjkb/rustaceanvim")
     use("tpope/vim-surround")
     use('nvim-treesitter/nvim-treesitter',
         {dependencies = {'nvim-treesitter/nvim-treesitter-textobjects'}},

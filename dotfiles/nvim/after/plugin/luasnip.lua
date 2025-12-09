@@ -40,20 +40,24 @@ cmp.setup({
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<C-e>"] = cmp.mapping.complete(),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
+        ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.select_prev_item()
+                cmp.select_next_item()
+            elseif ls.choice_active() then
+                ls.change_choice(1)
             elseif ls.expand_or_jumpable() then
-                ls.expand_or_jump(-1)
+                ls.expand_or_jump(1)
             else
                 fallback()
             end
         end, {"i", "s"}),
-        ["<Tab>"] = cmp.mapping(function(fallback)
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.select_next_item()
+                cmp.select_prev_item()
+            elseif ls.choice_active() then
+                ls.change_choice(-1)
             elseif ls.expand_or_jumpable() then
-                ls.expand_or_jump(1)
+                ls.expand_or_jump(-1)
             else
                 fallback()
             end

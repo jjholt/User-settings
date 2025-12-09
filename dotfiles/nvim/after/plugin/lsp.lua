@@ -12,7 +12,8 @@ vim.lsp.config['matlab_ls'] = {
     -- root_markers = {'.git'},
     settings = {
         MATLAB = {
-            installPath = '$HOME/.local/MATLAB/R2025a'
+            --- This directory must be in path!!!
+            installPath = '/home/jj/.local/MATLAB/R2025a'
         },
     },
     single_file_support = true
@@ -36,4 +37,3 @@ vim.lsp.config['matlab_ls'] = {
 vim.diagnostic.config({
     virtual_text = true
 })
-
